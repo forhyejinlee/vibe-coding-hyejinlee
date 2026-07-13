@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나만의 작은 음악 보관소</title>
+  
+  <!-- Tailwind CSS 로드 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    // Tailwind Custom Configuration (iOS 감성 테마 반영)
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#778873',    /* 딥 세이지 그린 */
+              light: '#A1BC98',   /* 소프트 세이지 */
+              sand: '#DCCFC0',    /* 웜 샌드 베이지 */
+              cream: '#FDF6ED',   /* 따뜻한 크림 아이보리 */
+              textMain: '#2D352B',/* 가독성을 높인 딥 그린 블랙 */
+              textMuted: '#6B7280'/* 차분한 그레이 */
+            }
+          },
+          fontFamily: {
+            // iOS SF Pro 스타일의 정갈하고 모던한 시스템 폰트 스택
+            sans: [
+              '-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"',
+              '"Helvetica Neue"', 'Helvetica', 'Arial', '"Malgun Gothic"', 'sans-serif'
+            ]
+          },
+          borderRadius: {
+            'ios': '20px',
+            'ios-sm': '12px'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* iOS 특유의 부드럽고 쫀쫀한 트랜지션 및 스타일 */
+    body {
+      background-color: #FDF6ED;
+      color: #2D352B;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* iOS 스타일의 얇고 깨끗한 세퍼레이터 */
+    .ios-divider {
+      border-bottom: 0.5px solid rgba(220, 207, 192, 0.6);
+    }
+
+    /* 햅틱 반응 느낌의 스케일 인터랙션 */
+    .ios-btn-active:active {
+      transform: scale(0.96);
+    }
+
+    /* 슬라이더 트랙 커스텀 스타일 */
+    .ios-progress-track {
+      background: rgba(119, 136, 115, 0.15);
+    }
+
+    /* 스크롤바 미니멀화 */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #DCCFC0;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-brand-textMain">
+
+  <!-- iOS 스타일 상단 바 (헤더) -->
+  <header class="sticky top-0 z-50 bg-[#FDF6ED]/80 backdrop-blur-md ios-divider">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-full bg-brand-dark flex items-center justify-center text-brand-cream shadow-sm">
+          <i data-lucide="music-3" class="w-4 h-4"></i>
+        </div>
+        <span class="font-semibold tracking-tight text-lg">나만의 작은 음악 보관소</span>
+      </div>
+      <nav class="flex gap-6 text-sm font-medium text-brand-textMuted">
+        <a href="#intro" class="hover:text-brand-dark transition-colors">소개</a>
+        <a href="#attractions" class="hover:text-brand-dark transition-colors">매력</a>
+        <a href="#playlists" class="hover:text-brand-dark transition-colors">보관함</a>
+        <a href="#comments-section" class="hover:text-brand-dark transition-colors">방명록</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 1. 히어로 영역 (iOS 미니멀 위젯 및 타이틀) -->
+  <section class="py-16 md:py-28 px-6 max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <!-- 텍스트 디테일 -->
+      <div class="lg:col-span-7 text-left space-y-6">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-dark/10 text-brand-dark rounded-full text-xs font-semibold tracking-wider uppercase">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>My Cozy Music Vault</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-brand-textMain leading-tight">
+          작은 음악 보관소
+        </h1>
+        <p class="text-brand-textMuted text-base md:text-lg max-w-xl font-normal leading-relaxed">
+          이혜진의 소중한 음악 취향과 깊이 있는 플레이리스트를 편안하게 공유하는 소리 창고입니다. 어쿠스틱 선율이 방 안을 채울 때, 혹은 온전히 집중의 숲으로 스며들고 싶을 때 수년간 고집스레 쌓아온 취향 아카이브를 소박하게 엽니다. 흘려듣기 아까운 수록곡과 클래식의 정거장입니다.
+        </p>
+        <div class="flex flex-wrap gap-4 pt-2">
+          <a href="#playlists" class="ios-btn-active bg-brand-dark hover:bg-brand-dark/90 text-brand-cream px-6 py-3.5 rounded-ios font-semibold text-sm transition-all shadow-md shadow-brand-dark/20 flex items-center gap-2">
+            보관소 둘러보기
+            <i data-lucide="arrow-down" class="w-4 h-4"></i>
+          </a>
+          <a href="#theboyz-generator" class="ios-btn-active bg-white border border-brand-sand hover:bg-brand-cream/50 text-brand-dark px-6 py-3.5 rounded-ios font-semibold text-sm transition-all flex items-center gap-2">
+            더보이즈 추천 위젯
+            <span class="w-2 h-2 rounded-full bg-brand-light animate-ping"></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- iOS 스타일 미니 플레이어 위젯 모형 (우측 데코) -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="w-full max-w-sm bg-white p-6 rounded-ios shadow-xl shadow-brand-dark/5 border border-brand-sand/50 space-y-5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-widest text-brand-textMuted">Now Playing</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-brand-light"></span>
+          </div>
+          <!-- 앨범 커버 데코 -->
+          <div class="relative aspect-square w-full rounded-ios-sm bg-gradient-to-tr from-brand-dark/20 to-brand-light/30 flex flex-col items-center justify-center overflow-hidden border border-brand-sand/20">
+            <div class="w-28 h-28 rounded-full bg-brand-dark flex items-center justify-center text-brand-cream shadow-lg shadow-brand-dark/20 relative animate-[spin_20s_linear_infinite]" id="widgetVinyl">
+              <i data-lucide="disc" class="w-14 h-14 opacity-80"></i>
+              <div class="absolute w-6 h-6 rounded-full bg-white border border-brand-sand top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+            </div>
+            <!-- 간결한 재생 타이틀 오버레이 -->
+            <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-3.5 rounded-ios-sm border border-brand-sand/30 flex justify-between items-center">
+              <div>
+                <p class="text-xs font-bold text-brand-textMain">더보이즈 (THE BOYZ)</p>
+                <p class="text-[10px] text-brand-textMuted" id="heroWidgetTrack">Salty</p>
+              </div>
+              <i data-lucide="waveform" class="w-4 h-4 text-brand-dark animate-pulse"></i>
+            </div>
+          </div>
+          <!-- 컨트롤바 -->
+          <div class="space-y-3">
+            <div class="h-1.5 w-full bg-brand-cream rounded-full overflow-hidden">
+              <div class="h-full bg-brand-dark w-2/5 rounded-full"></div>
+            </div>
+            <div class="flex justify-between text-[11px] text-brand-textMuted font-medium">
+              <span>01:14</span>
+              <span>03:03</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 소개 영역 (Intro & 오늘의 기분 분석) -->
+  <section class="py-20 bg-white ios-divider" id="intro">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- 소개 텍스트 -->
+        <div class="lg:col-span-6 space-y-6">
+          <h2 class="text-3xl font-bold tracking-tight text-brand-textMain">보관소 이야기</h2>
+          <p class="text-brand-textMuted leading-relaxed">
+            한 곡의 소중한 멜로디는 그날의 계절과 공기의 온도, 당일의 미세한 기분까지 보관하는 보이지 않는 타임캡슐입니다. <br><br>
+            이 공간은 스쳐 지나가는 무의미한 실시간 차트 스트리밍에서 완전히 벗어나, <strong>이혜진이 직접 고르고 애정 어린 시선으로 수집해 온 플레이리스트를 한데 모아 다른 이들에게 공유하고 영감을 나누는 다이어리</strong>입니다. <br><br>
+            2,000일이 넘는 덕심으로 차곡차곡 쌓아올린 더보이즈의 완벽한 보컬 수록곡과 마음에 안식을 주며 몰입의 집중도를 극한으로 끌어올리는 쇼팽의 명품 클래식, 그리고 SZA, 테일러 스위프트, 아리아나 그란데 등 글로벌 아티스트들의 아름다운 명곡 믹스테이프까지 뚜렷한 취향의 주관으로 정리했습니다.
+          </p>
+          <div class="p-5 bg-brand-cream/70 border-l-4 border-brand-dark rounded-r-ios-sm">
+            <p class="text-sm italic font-medium text-brand-dark">
+              "스쳐가는 소음은 닫고, 오늘의 감정에 싱크를 맞출 수 있는 맞춤 한 자락을 여기서 만나보세요."
+            </p>
+          </div>
+        </div>
+
+        <!-- 날씨/기분 인터랙티브 컴포넌트 -->
+        <div class="lg:col-span-6 bg-brand-cream/40 p-6 rounded-ios border border-brand-sand/60 space-y-6">
+          <div class="flex items-center gap-2 text-brand-dark">
+            <i data-lucide="sliders" class="w-5 h-5"></i>
+            <h4 class="font-bold text-base">오늘의 기분 및 무드 분석기</h4>
+          </div>
+
+          <!-- 기분 선택 -->
+          <div class="space-y-2">
+            <label class="text-xs font-semibold text-brand-textMuted uppercase tracking-wider block">선호하는 무드 세팅</label>
+            <div class="grid grid-cols-3 gap-2" id="moodOptions">
+              <button class="opt-btn active py-2.5 px-3 bg-white border border-brand-sand text-xs font-semibold rounded-ios-sm text-brand-textMain flex items-center justify-center gap-1.5 transition-all ios-btn-active" data-value="boyz">
+                <i data-lucide="star" class="w-3.5 h-3.5"></i> 더보이즈 명곡
+              </button>
+              <button class="opt-btn py-2.5 px-3 bg-white border border-brand-sand text-xs font-semibold rounded-ios-sm text-brand-textMain flex items-center justify-center gap-1.5 transition-all ios-btn-active" data-value="chopin">
+                <i data-lucide="music" class="w-3.5 h-3.5"></i> 쇼팽 피아노
+              </button>
+              <button class="opt-btn py-2.5 px-3 bg-white border border-brand-sand text-xs font-semibold rounded-ios-sm text-brand-textMain flex items-center justify-center gap-1.5 transition-all ios-btn-active" data-value="special">
+                <i data-lucide="compass" class="w-3.5 h-3.5"></i> 스페셜 믹스
+              </button>
+            </div>
+          </div>
+
+          <!-- 기분 진단 결과 출력 박스 -->
+          <div class="p-5 bg-white rounded-ios-sm border border-brand-sand/80 shadow-sm" id="recommendResult">
+            <div class="flex items-center gap-2 text-xs font-bold text-brand-dark uppercase tracking-widest mb-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-light"></span>
+              <span>오늘의 한 곡 매칭</span>
+            </div>
+            <div class="text-sm font-bold text-brand-textMain mb-1" id="resultTrackTitle">로딩중...</div>
+            <div class="text-xs text-brand-textMuted leading-relaxed" id="resultTrackDesc">로딩중...</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 매력 포인트 3개 카드 영역 -->
+  <section class="py-20 max-w-6xl mx-auto px-6" id="attractions">
+    <div class="text-center space-y-4 mb-16">
+      <h2 class="text-3xl font-bold tracking-tight">이 보관소가 제공하는 3가지 경험</h2>
+      <p class="text-brand-textMuted max-w-xl mx-auto text-sm">인스턴트 같은 추천 알고리즘을 떠나, 뚜렷한 애정과 사운드적 완성도를 기반으로 소장한 3가지 가치입니다.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- 카드 1 -->
+      <div class="bg-white p-8 rounded-ios border border-brand-sand/40 hover:border-brand-light transition-all shadow-sm flex flex-col justify-between">
+        <div class="space-y-4">
+          <div class="w-12 h-12 rounded-ios-sm bg-[#778873]/10 flex items-center justify-center text-brand-dark">
+            <i data-lucide="heart" class="w-6 h-6"></i>
+          </div>
+          <p class="text-xs font-bold text-brand-dark tracking-wider uppercase">#2,000일의 소중한 팬심</p>
+          <h3 class="text-lg font-bold text-brand-textMain">더보이즈의 보석 같은 수록곡</h3>
+          <p class="text-xs text-brand-textMuted leading-relaxed">
+            타이틀의 대중성 뒤에 꽁꽁 숨어있는 웰메이드 감성 R&B, 청량 팝, 몽환적 보컬 라인의 더보이즈 명곡 리스트를 다채롭게 분석하여 보물찾기처럼 추천합니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- 카드 2 -->
+      <div class="bg-white p-8 rounded-ios border border-brand-sand/40 hover:border-brand-light transition-all shadow-sm flex flex-col justify-between">
+        <div class="space-y-4">
+          <div class="w-12 h-12 rounded-ios-sm bg-[#778873]/10 flex items-center justify-center text-brand-dark">
+            <i data-lucide="book-open" class="w-6 h-6"></i>
+          </div>
+          <p class="text-xs font-bold text-brand-dark tracking-wider uppercase">#가사 차단 초몰입</p>
+          <h3 class="text-lg font-bold text-brand-textMain">쇼팽의 클래식 선율</h3>
+          <p class="text-xs text-brand-textMuted leading-relaxed">
+            시험 공부나 작업 등 잡념 차단과 두뇌의 각성이 완벽히 요구될 때, 마음에 안식을 주며 몰입의 집중도를 극한으로 끌어올리는 쇼팽 피아노 연주 모음입니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- 카드 3 -->
+      <div class="bg-white p-8 rounded-ios border border-brand-sand/40 hover:border-brand-light transition-all shadow-sm flex flex-col justify-between">
+        <div class="space-y-4">
+          <div class="w-12 h-12 rounded-ios-sm bg-[#778873]/10 flex items-center justify-center text-brand-dark">
+            <i data-lucide="compass" class="w-6 h-6"></i>
+          </div>
+          <p class="text-xs font-bold text-brand-dark tracking-wider uppercase">#자유로운 사운드</p>
+          <h3 class="text-lg font-bold text-brand-textMain">독립된 스페셜 컬렉션</h3>
+          <p class="text-xs text-brand-textMuted leading-relaxed">
+            SZA, 테일러 스위프트, 아리아나 그란데, 에이브릴 라빈, 트리플에스까지 아티스트 고유의 유니크한 음색과 소리를 한눈에 감상할 수 있는 감성 컬렉션입니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 스토리텔링 타임라인 (여정의 발견) -->
+  <section class="py-20 bg-white ios-divider" id="timeline">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center space-y-4 mb-16">
+        <h2 class="text-3xl font-bold tracking-tight">음악을 만나는 3가지 스토리텔링 여정</h2>
+        <p class="text-brand-textMuted text-sm">보관소의 대문을 열어 당신의 하루 감성과 자연스럽게 매칭되고 흘러가는 이야기입니다.</p>
+      </div>
+
+      <!-- iOS 타임라인 연대표 -->
+      <div class="relative pl-6 border-l border-brand-sand space-y-12">
+        <!-- 스텝 1 -->
+        <div class="relative">
+          <span class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-[#778873] border-4 border-white shadow-sm"></span>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold text-brand-dark px-2 py-0.5 bg-brand-cream rounded-full">STEP 01</span>
+              <h4 class="text-base font-bold text-brand-textMain">기분 상태 체크인</h4>
+            </div>
+            <p class="text-xs text-brand-textMuted leading-relaxed">
+              사이트에 들어와 오늘의 상태나 원하는 트랙 모드를 클릭하여, 굳이 찾지 않아도 내 심장 박동과 감수성에 부합하는 무드로 다리를 놓아 시작합니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- 스텝 2 -->
+        <div class="relative">
+          <span class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-[#778873] border-4 border-white shadow-sm"></span>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold text-brand-dark px-2 py-0.5 bg-brand-cream rounded-full">STEP 02</span>
+              <h4 class="text-base font-bold text-brand-textMain">밀도 높은 큐레이션과 덕질 비하인드 독해</h4>
+              <p class="text-xs text-brand-textMuted leading-relaxed">
+                단순히 플레이리스트만 띄워주는 것이 아니라, 2000일간 다듬어진 더보이즈 음악의 비하인드 노트와 쇼팽 피아노 연주의 해석 썰 등 귀로 읽는 서사를 제공합니다.
+              </p>
+            </div>
+          </div>
+
+          <!-- 스텝 3 -->
+          <div class="relative pt-12">
+            <span class="absolute -left-[31px] top-[54px] w-4 h-4 rounded-full bg-[#778873] border-4 border-white shadow-sm"></span>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-bold text-brand-dark px-2 py-0.5 bg-brand-cream rounded-full">STEP 03</span>
+                <h4 class="text-base font-bold text-brand-textMain">한 줄 감상평으로 흔적과 여운 공유</h4>
+              </div>
+              <p class="text-xs text-brand-textMuted leading-relaxed">
+                감상을 마친 뒤, 음악이라는 아름다운 세계에서 조우한 또 다른 감성 리스너들과 연결될 수 있도록 아날로그 메모지에 생각을 한 자락 적어두고 연대합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 플레이리스트 및 방명록 세션 -->
+  <section class="py-20 max-w-6xl mx-auto px-6" id="playlists">
+    <div class="text-center space-y-4 mb-16">
+      <h2 class="text-3xl font-bold tracking-tight">플레이리스트 & 뮤직 감상 보드</h2>
+      <p class="text-brand-textMuted text-sm">원하는 트랙 테마를 선택하면 정갈하게 정리된 스토리 코멘터리가 뮤직 플레이어로 로드됩니다.</p>
+    </div>
+
+    <!-- 플레이리스트 & 방명록 통합 메인 보드 -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+      
+      <!-- 좌측: 트랙 테마 목록 + 더보이즈 스페셜 위젯 -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <!-- [2000일의 덕심] 더보이즈(THE BOYZ) 숨은 명곡 추천 위젯 -->
+        <div class="bg-white p-6 rounded-ios border border-brand-sand/60 shadow-sm space-y-4" id="theboyz-generator">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-brand-dark"></span>
+              <h3 class="font-bold text-sm tracking-tight text-brand-textMain">THE BOYZ 수록곡 자동 추천기</h3>
+            </div>
+            <span class="text-[10px] font-bold text-brand-dark uppercase tracking-widest px-2.5 py-1 bg-brand-cream rounded-full">2000일의 팬심</span>
+          </div>
+          <p class="text-xs text-brand-textMuted leading-relaxed">
+            더보이즈의 보석 같은 수록곡 중 오늘의 당신에게 가장 울림을 줄 B-Side 명곡을 무작위로 엄선해 추천합니다. 아래 버튼을 탭해 보세요!
+          </p>
+          
+          <div class="p-4 bg-brand-cream/40 rounded-ios-sm border border-brand-sand/40 flex items-start gap-3.5" id="tbzRecCard">
+            <div class="w-10 h-10 rounded-ios-sm bg-brand-dark/10 flex-shrink-0 flex items-center justify-center text-brand-dark">
+              <i data-lucide="music-4" class="w-5 h-5"></i>
+            </div>
+            <div class="space-y-1">
+              <h4 class="text-xs font-bold text-brand-textMain flex items-center gap-1.5" id="tbzTrackName">
+                Salty
+              </h4>
+              <p class="text-[11px] text-brand-textMuted leading-relaxed" id="tbzTrackDesc">
+                "상큼하면서도 아련하고 아련한 특유의 소년 멜로디가 일품인 더보이즈의 숨은 과몰입 1순위 대표곡"
+              </p>
+            </div>
+          </div>
+
+          <button onclick="recommendTheBoyzTrack()" class="ios-btn-active w-full py-3 bg-brand-dark hover:bg-[#687764] text-brand-cream rounded-ios-sm font-semibold text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-2">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5 animate-spin-slow"></i>
+            다른 명곡 추천받기
+          </button>
+        </div>
+
+        <!-- 플레이리스트 카드 컬렉션 -->
+        <div class="space-y-3">
+          <!-- 플레이리스트 1: 더보이즈 B-Side -->
+          <div class="playlist-card active p-5 bg-white rounded-ios border border-brand-sand/60 hover:border-brand-dark transition-all cursor-pointer flex justify-between items-center" data-index="0">
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-extrabold text-brand-dark uppercase tracking-widest bg-brand-cream px-2 py-0.5 rounded-full">01. 2,000일의 덕심</span>
+              </div>
+              <h4 class="text-sm font-bold text-brand-textMain">THE BOYZ 숨은 비사이드 명곡 컬렉션</h4>
+              <p class="text-xs text-brand-textMuted">더보이즈 최고의 감성 소년 수록곡 비하인드 코멘터리</p>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-brand-dark text-brand-cream flex items-center justify-center">
+              <i data-lucide="play" class="w-4 h-4 play-icon-shape"></i>
+            </div>
+          </div>
+
+          <!-- 플레이리스트 2: 쇼팽 클래식 -->
+          <div class="playlist-card p-5 bg-white rounded-ios border border-brand-sand/60 hover:border-brand-dark transition-all cursor-pointer flex justify-between items-center" data-index="1">
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-extrabold text-brand-dark uppercase tracking-widest bg-brand-cream px-2 py-0.5 rounded-full">02. 클래식 파트</span>
+              </div>
+              <h4 class="text-sm font-bold text-brand-textMain">쇼팽(Chopin) 감성 피아노 에셋</h4>
+              <p class="text-xs text-brand-textMuted">공부, 마감 기획 등 백색 소음이 최대로 가동될 때 적합한 피아노 곡집</p>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-brand-cream text-brand-dark border border-brand-sand flex items-center justify-center">
+              <i data-lucide="play" class="w-4 h-4 play-icon-shape"></i>
+            </div>
+          </div>
+
+          <!-- 플레이리스트 3: 스페셜 컬렉션 -->
+          <div class="playlist-card p-5 bg-white rounded-ios border border-brand-sand/60 hover:border-brand-dark transition-all cursor-pointer flex justify-between items-center" data-index="2">
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-extrabold text-brand-dark uppercase tracking-widest bg-brand-cream px-2 py-0.5 rounded-full">03. 스페셜 컬렉션</span>
+              </div>
+              <h4 class="text-sm font-bold text-brand-textMain">글로벌 명곡 스페셜 믹스 리스트</h4>
+              <p class="text-xs text-brand-textMuted">SZA, 테일러 스위프트, 아리아나 그란데, 트리플에스 등 엄선된 18곡의 웰메이드 트랙</p>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-brand-cream text-brand-dark border border-brand-sand flex items-center justify-center">
+              <i data-lucide="play" class="w-4 h-4 play-icon-shape"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 우측: 미니 큐레이션 플레이어 (상태 홀드 및 인터랙티브 큐레이션) -->
+      <div class="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
+        <div class="bg-white p-6 rounded-ios border border-brand-sand/60 shadow-lg shadow-brand-dark/5 space-y-6">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold text-brand-dark uppercase tracking-widest flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-brand-light animate-pulse"></span>
+              <span>My Player Vibe</span>
+            </span>
+            <i data-lucide="headphones" class="w-4 h-4 text-brand-textMuted"></i>
+          </div>
+
+          <!-- 아티스트 / 앨범 제목 뷰어 -->
+          <div class="p-4 bg-brand-cream/40 rounded-ios-sm border border-brand-sand/50 space-y-2">
+            <div>
+              <p class="text-xs text-brand-textMuted" id="playerArtist">더보이즈 (THE BOYZ)</p>
+              <h3 class="text-base font-extrabold text-brand-textMain leading-tight" id="playerTrack">Salty</h3>
+            </div>
+            <!-- 간편 재생 경과 시간 -->
+            <div class="space-y-1.5 pt-2">
+              <div class="h-1 w-full ios-progress-track rounded-full overflow-hidden">
+                <div class="h-full bg-brand-dark w-[25%]" id="progressFill"></div>
+              </div>
+              <div class="flex justify-between text-[10px] text-brand-textMuted">
+                <span id="playerCurrentTime">0:30</span>
+                <span id="playerTotalTime">03:03</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 수록곡 인터랙티브 디스플레이 목록 -->
+          <div class="space-y-2">
+            <p class="text-[10px] font-extrabold text-brand-dark uppercase tracking-widest flex items-center gap-1">
+              <i data-lucide="list-music" class="w-3.5 h-3.5"></i>
+              <span>수록곡 리스트 (탭해서 재생)</span>
+            </p>
+            <div class="max-h-48 overflow-y-auto space-y-1 pr-1 bg-brand-cream/30 p-2 rounded-ios-sm border border-brand-sand/30" id="subTracklist">
+              <!-- JS를 통해 동적으로 채워집니다. -->
+            </div>
+          </div>
+
+          <!-- 플레이백 버튼 -->
+          <div class="flex items-center justify-center gap-6">
+            <button onclick="prevTrack()" class="text-brand-textMuted hover:text-brand-dark transition-colors"><i data-lucide="skip-back" class="w-5 h-5"></i></button>
+            <button id="btnPlayPause" class="w-12 h-12 rounded-full bg-brand-dark text-brand-cream flex items-center justify-center hover:bg-brand-dark/90 transition-all ios-btn-active">
+              <i data-lucide="pause" class="w-5 h-5" id="playPauseIcon"></i>
+            </button>
+            <button onclick="nextTrack()" class="text-brand-textMuted hover:text-brand-dark transition-colors"><i data-lucide="skip-forward" class="w-5 h-5"></i></button>
+          </div>
+
+          <!-- 보관소 큐레이터 비하인드 독백 에셋 -->
+          <div class="pt-4 border-t border-brand-sand/50 space-y-2">
+            <div class="flex items-center gap-1 text-[11px] font-bold text-brand-dark uppercase tracking-widest">
+              <i data-lucide="book" class="w-3.5 h-3.5"></i>
+              <span>덕후의 아카이브 감상 한 자락</span>
+            </div>
+            <p class="text-xs text-brand-textMuted leading-relaxed" id="storyDescText">
+              더보이즈 팬들이라면 누구나 눈물 한 방울 흘린다는 띵곡 수록곡입니다. 아련하게 부풀어 오르는 화음 탑라인과 아날로그 신스 패드가 가슴을 저미게 합니다.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 방명록 한 줄 수집 보드 -->
+    <div class="bg-brand-cream/30 p-8 rounded-ios border border-brand-sand/60" id="comments-section">
+      <div class="max-w-3xl mx-auto space-y-8">
+        
+        <!-- 타이틀 -->
+        <div class="text-center space-y-2">
+          <h3 class="text-2xl font-bold tracking-tight text-brand-textMain">취향 기록 방명록</h3>
+          <p class="text-brand-textMuted text-xs">함께 마음을 나눈 노래, 오늘의 온도나 감상평 일기를 가볍게 남겨 연대하세요.</p>
+        </div>
+
+        <!-- 입력 폼 -->
+        <form id="commentForm" class="bg-white p-6 rounded-ios border border-brand-sand/40 space-y-4 shadow-sm">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-1.5">
+              <label class="text-[10px] font-bold text-brand-textMuted uppercase tracking-wider block">사용할 닉네임</label>
+              <input type="text" id="commentorName" class="w-full px-3 py-2.5 bg-brand-cream/30 border border-brand-sand/50 rounded-ios-sm text-xs text-brand-textMain focus:outline-none focus:border-brand-dark" placeholder="리스너 이름" required>
+            </div>
+            <div class="space-y-1.5">
+              <label class="text-[10px] font-bold text-brand-textMuted uppercase tracking-wider block">오늘 내 감정의 아이콘</label>
+              <select id="commentEmoji" class="w-full px-3 py-2.5 bg-brand-cream/30 border border-brand-sand/50 rounded-ios-sm text-xs text-brand-textMain focus:outline-none focus:border-brand-dark">
+                <option value="🎧">🎧 나른함 속에 음악 충전</option>
+                <option value="🌧️">🌧️ 비 내리는 수채화 감성</option>
+                <option value="✏️">✏️ 고도 몰입의 집중 시간</option>
+                <option value="🌙">🌙 따스한 밤공기 감상</option>
+                <option value="🍀">🍀 힐링이 필요한 하루</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="text-[10px] font-bold text-brand-textMuted uppercase tracking-wider block">나누고픈 한 줄 일기</label>
+            <textarea id="commentContent" class="w-full h-24 px-3 py-2.5 bg-brand-cream/30 border border-brand-sand/50 rounded-ios-sm text-xs text-brand-textMain focus:outline-none focus:border-brand-dark resize-none" placeholder="오늘 추천받은 쇼팽 선율이나 더보이즈 수록곡 감상평, 혹은 본인의 감성곡 추천을 남겨보세요..." required></textarea>
+          </div>
+
+          <button type="submit" class="ios-btn-active w-full py-3 bg-brand-dark hover:bg-brand-dark/95 text-brand-cream font-semibold text-xs rounded-ios-sm transition-colors flex items-center justify-center gap-1.5">
+            흔적 남기기
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          </button>
+        </form>
+
+        <!-- 댓글 목록 리스트 -->
+        <div class="space-y-4">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-xs text-brand-textMuted uppercase tracking-wider">우리들의 연결 보드</h4>
+            <span class="text-[11px] font-semibold text-brand-dark" id="commentsCount">전체 흔적: 0개</span>
+          </div>
+
+          <div class="space-y-3" id="commentsFeed">
+            <!-- 동적 메모 렌더링 -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer class="bg-white py-12 border-t border-brand-sand/50">
+    <div class="max-w-6xl mx-auto px-6 text-center space-y-4">
+      <div class="flex items-center justify-center gap-2 text-brand-dark">
+        <i data-lucide="music" class="w-5 h-5"></i>
+        <span class="font-bold text-sm tracking-widest uppercase">My Cozy Record Room</span>
+      </div>
+      <p class="text-xs text-brand-textMuted leading-relaxed max-w-md mx-auto">
+        오늘의 날씨와 기분에 맞춰 준비한 쇼팽과 더보이즈의 완벽한 멜로디 타임캡슐. <br>본 페이지는 순수 취향 공유를 위해 제작된 아늑한 소리창고입니다.
+      </p>
+      <div class="text-[10px] text-brand-textMuted pt-4 border-t border-brand-sand/30">
+        &copy; 2026 My Cozy Music Room. iOS Minimalist Concept. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- 플레이리스트 데이터셋 및 인터랙션 자바스크립트 -->
+  <script>
+    // 1. 미니 플레이어용 대표 3대 큐레이션 및 18곡의 상세 수록곡 데이터베이스
+    const playlistsData = [
+      {
+        trackName: "Salty",
+        artist: "더보이즈 (THE BOYZ)",
+        totalTime: "03:03",
+        story: "더보이즈 팬들의 가슴을 아련하게 만드는 최고의 숨은 B-side 트랙입니다. 세련된 신스 라인과 특유의 쓸쓸하면서도 소년다운 풋풋함이 보관소 주인장의 강력한 원픽 스토리보드를 가득 채웁니다.",
+        tracks: [
+          { name: "Salty", artist: "더보이즈 (THE BOYZ)", time: "03:03", desc: "더보이즈 숨은 명곡의 상징. 청량한 하우스 비트와 쓸쓸한 멜로디가 묘한 대비를 이루는 명곡입니다." },
+          { name: "Daydream", artist: "더보이즈 (THE BOYZ)", time: "03:15", desc: "나른한 오후, 꿈결을 산책하듯 흘러가는 몽환적인 소년의 위로가 돋보이는 드림팝." },
+          { name: "Horizon", artist: "더보이즈 (THE BOYZ)", time: "04:10", desc: "보이스 라인의 찬란하고 따스한 보컬 케미가 돋보이는 서정적 정통 발라드." },
+          { name: "Hurt Me Less (환상통)", artist: "더보이즈 (THE BOYZ)", time: "03:22", desc: "시원하면서도 특유의 쓸쓸함을 머금은 팝 펑크 장르의 숨겨진 보석." },
+          { name: "Lucid Dream", artist: "더보이즈 (THE BOYZ)", time: "03:50", desc: "잠 못 드는 밤, 귓가에 아련하게 맴도는 보컬 라인의 몽환적인 음색." }
+        ]
+      },
+      {
+        trackName: "Nocturne Op. 9 No. 2",
+        artist: "Fryderyk Chopin (쇼팽)",
+        totalTime: "04:30",
+        story: "집중이나 독서, 마감 업무 도중 귀에 가장 자연스러운 힐링과 마인드 컨트롤 장작을 대어주는 쇼팽의 대표 야상곡입니다. 가사가 없어 뇌의 전적인 지적 활동을 아늑하게 서포트합니다.",
+        tracks: [
+          { name: "Nocturne Op. 9 No. 2", artist: "Fryderyk Chopin", time: "04:30", desc: "밤하늘의 은은한 달빛을 닮아, 지친 마음에 편안한 위로를 전하는 쇼팽의 대표 야상곡." },
+          { name: "Raindrop Prelude Op. 28 No. 15", artist: "Fryderyk Chopin", time: "05:15", desc: "창문을 톡톡 두드리는 낙숫물 소리처럼 규칙적이고 편안한 리듬의 전주곡." },
+          { name: "Fantaisie-Impromptu Op. 66", artist: "Fryderyk Chopin", time: "05:10", desc: "휘몰아치듯 쏟아지는 건반의 향연이 고요함 속에서 뇌세포의 고도 몰입을 유도합니다." }
+        ]
+      },
+      {
+        trackName: "Snooze",
+        artist: "SZA",
+        totalTime: "03:21",
+        story: "음악적 카테고리와 장르의 경계를 완전히 허물어버린 아티스트들의 아름다운 명곡 믹스테이프입니다. 귓가를 맴도는 독창적인 비트와 소울을 한데 모았습니다.",
+        tracks: [
+          { name: "Snooze", artist: "SZA", time: "03:21", desc: "지나치게 감각적인 R&B 그루브와 몽환적인 코러스라인이 귀를 황홀하게 녹여내는 곡." },
+          { name: "Kill Bill", artist: "SZA", time: "02:33", desc: "위트 있고 도발적인 가사 뒤에 흐르는 부드러운 빈티지 로파이 리듬." },
+          { name: "What Do I Do", artist: "SZA", time: "03:12", desc: "SZA 특유의 소울풀하고 짙은 보컬이 마음 한구석을 자극하는 깊은 사운드." },
+          { name: "Love Me 4 Me", artist: "SZA", time: "03:00", desc: "나 자신을 온전히 아끼고 위로하는 가사 위에 얹어진 매혹적인 R&B 트랙." },
+          { name: "Cruel Summer", artist: "Taylor Swift", time: "02:58", desc: "달아오르는 신스 일렉트로 사운드와 함께 가슴을 벅차오르게 만드는 최고의 브릿지 구간." },
+          { name: "Lover", artist: "Taylor Swift", time: "03:41", desc: "따스한 벽난로 앞에 앉아 옛 일기를 읽는 듯 편안하고 낭만적인 빈티지 왈츠풍 노래." },
+          { name: "Blank Space", artist: "Taylor Swift", time: "03:51", desc: "감각적이고 미니멀한 드럼 비트 위로 톡톡 튀어 오르는 영리한 가사가 매력적인 팝." },
+          { name: "Cardigan", artist: "Taylor Swift", time: "03:59", desc: "빗물 머금은 낡은 스웨터를 꺼내 입듯 쓸쓸함과 그리움을 아름다운 피아노 선율로 담아낸 곡." },
+          { name: "Honeymoon Avenue", artist: "Ariana Grande", time: "05:39", desc: "웅장한 스트링 연주와 아리아나의 화려한 미성이 폭발하듯 엮이는 낭만적인 데뷔 앨범 오프닝." },
+          { name: "Baby I", artist: "Ariana Grande", time: "03:17", desc: "90년대 레트로 소울의 청량함을 완벽하게 현대적으로 복각해 낸 사랑스러운 알앤비 팝." },
+          { name: "Tattooed Heart", artist: "Ariana Grande", time: "03:14", desc: "한 편의 고전 소울 명작을 보듯, 귀여운 두왑 스타일의 드럼 위에 얹은 가창력의 수작." },
+          { name: "Smile", artist: "Avril Lavigne", time: "03:29", desc: "시원하고 앙칼지게 지르는 보컬과 활기찬 하이틴 펑크 록 에너지가 온전한 활력을 선물합니다." },
+          { name: "Rock N Roll", artist: "Avril Lavigne", time: "03:26", desc: "심장을 요동치게 만드는 야성적인 일렉트릭 기타 리프와 자유를 울부짖는 강렬한 록 앤 롤." },
+          { name: "Anything but Ordinary", artist: "Avril Lavigne", time: "04:11", desc: "평범한 일상을 거부하는 아티스트 초기의 거칠고 솔직하며 풋풋한 얼터너티브 명작." },
+          { name: "always", artist: "keshi", time: "02:56", desc: "로파이 기타의 느긋한 가청 그루브 위로 흐르는 고막 힐링용 새벽 감성송." },
+          { name: "Angel 2 Me", artist: "McKay (맥케이)", time: "03:42", desc: "부드럽고 신비로운 감성의 어쿠스틱 화음 선율이 귓가를 포근히 적셔주는 숨겨진 러브송." },
+          { name: "Back & Forth", artist: "Jacob (제이콥)", time: "03:15", desc: "자유로운 리듬의 업비트 R&B 그루브가 퇴근길이나 산책 시 한껏 세련된 기분을 돋우는 곡." },
+          { name: "Generation", artist: "tripleS (트리플에스)", time: "02:44", desc: "쿨하고 시크하게 끊어 치는 펑키 비트와 시티팝 특유의 몽환적인 화음 탑라인이 예술인 곡." },
+          { name: "Girls Never Die", artist: "tripleS (트리플에스)", time: "03:07", desc: "어떠한 한계와 어둠 속에서도 꺾이지 않는 당당한 서사를 세련된 신스팝으로 연출한 곡." }
+        ]
+      }
+    ];
+
+    // 2. 더보이즈(THE BOYZ) 숨은 명곡 리스트 데이터셋 (무작위 자동 추천용)
+    const theBoyzTracks = [
+      {
+        name: "Salty (솔티)",
+        desc: "더보이즈 숨은 띵곡의 상징. 청량하면서도 세련된 마이너 하우스 팝 비트로 한 번 들으면 무조건 반복 재생하게 되는 매직을 보장합니다."
+      },
+      {
+        name: "Daydream (데이드림)",
+        desc: "나른한 오후, 몽환적이고 흐릿한 꿈속을 걷는 듯한 서정적 보컬 탑라인과 달콤하고 쓸쓸한 이지리스닝의 극한을 경험할 수 있습니다."
+      },
+      {
+        name: "Horizon (지평선)",
+        desc: "멤버들의 감미롭고 섬세한 보컬 역량이 가장 찬란하게 빛나는 숨은 정통 감성 발라드 명곡. 비 내리는 창가에서 들어보세요."
+      },
+      {
+        name: "Hurt Me Less (환상통)",
+        desc: "시원하면서도 특유의 아련함을 동시에 터뜨려주는 팝 펑크 장르의 수작. 드라이브할 때 혹은 산책로에서 귀를 두드려주는 명작입니다."
+      },
+      {
+        name: "Lucid Dream (루시드 드림)",
+        desc: "이름처럼 세련된 드림팝 요소를 머금고 있어, 신비롭고 아기자기한 밤샘 집중 시간에 백그라운드로 켜놓기 좋은 고감도 수록곡."
+      }
+    ];
+
+    // 3. 쇼팽 명곡 목록 (체크인 매칭용)
+    const chopinTracks = [
+      { name: "Chopin: Nocturne Op. 9 No. 2", desc: "차분히 눈 내리거나 비 오는 날 고도의 편안한 기분 안식을 선사하는 피아노 대표작" },
+      { name: "Chopin: Raindrop Prelude Op. 28 No. 15", desc: "규칙적인 피아노 연주음이 떨어지는 빗방울과 가장 서정적으로 싱크되어 마음을 정리합니다." },
+      { name: "Chopin: Fantaisie-Impromptu Op. 66", desc: "정적인 듯 격정적으로 쏟아지는 건반 타격음이 두뇌의 고도 각성과 기획서 몰입을 환상적으로 이끕니다." }
+    ];
+
+    // DOM 제어 바인딩
+    const widgetVinyl = document.getElementById('widgetVinyl');
+    const playlistCards = document.querySelectorAll('.playlist-card');
+    const playerTrack = document.getElementById('playerTrack');
+    const playerArtist = document.getElementById('playerArtist');
+    const playerTotalTime = document.getElementById('playerTotalTime');
+    const storyDescText = document.getElementById('storyDescText');
+    const progressFill = document.getElementById('progressFill');
+    const playerCurrentTime = document.getElementById('playerCurrentTime');
+    const btnPlayPause = document.getElementById('btnPlayPause');
+    const playPauseIcon = document.getElementById('playPauseIcon');
+    const subTracklist = document.getElementById('subTracklist');
+    const heroWidgetTrack = document.getElementById('heroWidgetTrack');
+
+    // 더보이즈 추천기 돔 바인딩
+    const tbzTrackName = document.getElementById('tbzTrackName');
+    const tbzTrackDesc = document.getElementById('tbzTrackDesc');
+
+    // 기분 선택 돔 바인딩
+    const moodOptions = document.getElementById('moodOptions');
+    const recommendResult = document.getElementById('recommendResult');
+    const resultTrackTitle = document.getElementById('resultTrackTitle');
+    const resultTrackDesc = document.getElementById('resultTrackDesc');
+
+    // 가상 가동 변수
+    let isPlaying = true;
+    let currentPlaylistIndex = 0;
+    let currentTrackIndex = 0;
+    let progressTimer = null;
+    let currentSeconds = 30;
+
+    // 더보이즈 숨은 명곡 랜덤 매칭 함수
+    function recommendTheBoyzTrack() {
+      const randomIndex = Math.floor(Math.random() * theBoyzTracks.length);
+      const selected = theBoyzTracks[randomIndex];
+      
+      tbzTrackName.innerText = selected.name;
+      tbzTrackDesc.innerText = `"${selected.desc}"`;
+      
+      // 메인 플레이어를 첫 번째 앨범(더보이즈) 테마로 자동 전환 후, 추천곡으로 재생 싱크
+      currentPlaylistIndex = 0;
+      const targetTrackIdx = playlistsData[0].tracks.findIndex(t => t.name.startsWith(selected.name.split(' ')[0]));
+      
+      if (targetTrackIdx !== -1) {
+        playSubTrack(targetTrackIdx);
+      } else {
+        playerTrack.innerText = selected.name;
+        playerArtist.innerText = "더보이즈 (THE BOYZ)";
+        playerTotalTime.innerText = "03:15";
+        storyDescText.innerText = selected.desc;
+      }
+
+      heroWidgetTrack.innerText = selected.name;
+      
+      // 햅틱 반응 효과 시뮬레이션
+      const tbzRecCard = document.getElementById('tbzRecCard');
+      tbzRecCard.classList.add('scale-95', 'opacity-80');
+      setTimeout(() => {
+        tbzRecCard.classList.remove('scale-95', 'opacity-80');
+      }, 150);
+    }
+
+    // 현재 선택된 플레이리스트의 수록곡들을 플레이어 내 리스트에 동적으로 렌더링
+    function renderSubTracklist() {
+      const playlist = playlistsData[currentPlaylistIndex];
+      subTracklist.innerHTML = playlist.tracks.map((track, idx) => {
+        const isActive = idx === currentTrackIndex;
+        return `
+          <div onclick="playSubTrack(${idx})" class="flex items-center justify-between p-2 rounded-ios-sm cursor-pointer transition-all text-xs ${
+            isActive 
+              ? 'bg-brand-dark/15 text-brand-dark font-bold border-l-2 border-brand-dark pl-3' 
+              : 'hover:bg-white text-brand-textMuted'
+          }">
+            <div class="flex items-center gap-2 truncate">
+              <span class="text-[9px] opacity-60 w-3">${String(idx + 1).padStart(2, '0')}</span>
+              <span class="font-semibold truncate text-brand-textMain">${track.name}</span>
+              <span class="text-[10px] opacity-70 truncate">- ${track.artist}</span>
+            </div>
+            <span class="text-[10px] opacity-50 flex-shrink-0 ml-1">${track.time}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 특정 수록곡 강제 플레이백 작동
+    function playSubTrack(idx) {
+      currentTrackIndex = idx;
+      const track = playlistsData[currentPlaylistIndex].tracks[idx];
+      
+      playerTrack.innerText = track.name;
+      playerArtist.innerText = track.artist;
+      playerTotalTime.innerText = track.time;
+      storyDescText.innerText = track.desc;
+
+      heroWidgetTrack.innerText = track.name;
+      
+      isPlaying = true;
+      playPauseIcon.setAttribute('data-lucide', 'pause');
+      lucide.createIcons();
+      widgetVinyl.style.animationPlayState = 'running';
+      
+      currentSeconds = 0;
+      updateProgressBar();
+      renderSubTracklist();
+    }
+
+    // 다음 곡 전환
+    function nextTrack() {
+      const playlist = playlistsData[currentPlaylistIndex];
+      let nextIdx = currentTrackIndex + 1;
+      if (nextIdx >= playlist.tracks.length) {
+        nextIdx = 0;
+      }
+      playSubTrack(nextIdx);
+    }
+
+    // 이전 곡 전환
+    function prevTrack() {
+      const playlist = playlistsData[currentPlaylistIndex];
+      let prevIdx = currentTrackIndex - 1;
+      if (prevIdx < 0) {
+        prevIdx = playlist.tracks.length - 1;
+      }
+      playSubTrack(prevIdx);
+    }
+
+    // 메인 플레이리스트 카드 로드 및 동조화
+    function loadTrack(index) {
+      currentPlaylistIndex = index;
+      currentTrackIndex = 0;
+      const playlist = playlistsData[index];
+      const defaultTrack = playlist.tracks[0];
+      
+      playerTrack.innerText = defaultTrack.name;
+      playerArtist.innerText = defaultTrack.artist;
+      playerTotalTime.innerText = defaultTrack.time;
+      storyDescText.innerText = defaultTrack.desc;
+
+      heroWidgetTrack.innerText = defaultTrack.name;
+      
+      isPlaying = true;
+      playPauseIcon.setAttribute('data-lucide', 'pause');
+      lucide.createIcons();
+      widgetVinyl.style.animationPlayState = 'running';
+      
+      currentSeconds = 0;
+      updateProgressBar();
+      renderSubTracklist();
+      
+      playlistCards.forEach((card, idx) => {
+        if (idx === index) {
+          card.classList.add('active', 'border-brand-dark');
+          card.classList.remove('border-brand-sand/60');
+          card.querySelector('.play-icon-shape').setAttribute('data-lucide', 'pause');
+        } else {
+          card.classList.remove('active', 'border-brand-dark');
+          card.classList.add('border-brand-sand/60');
+          card.querySelector('.play-icon-shape').setAttribute('data-lucide', 'play');
+        }
+      });
+      lucide.createIcons();
+    }
+
+    // 재생 일시정지 제어
+    function togglePlay() {
+      if (isPlaying) {
+        isPlaying = false;
+        playPauseIcon.setAttribute('data-lucide', 'play');
+        widgetVinyl.style.animationPlayState = 'paused';
+      } else {
+        isPlaying = true;
+        playPauseIcon.setAttribute('data-lucide', 'pause');
+        widgetVinyl.style.animationPlayState = 'running';
+      }
+      lucide.createIcons();
+    }
+
+    // 가상 탐색 바 제어
+    function updateProgressBar() {
+      clearInterval(progressTimer);
+      progressTimer = setInterval(() => {
+        if (!isPlaying) return;
+        currentSeconds++;
+        const totalStr = playlistsData[currentPlaylistIndex].tracks[currentTrackIndex].time;
+        if (totalStr === "00:00") {
+          progressFill.style.width = `0%`;
+          playerCurrentTime.innerText = "0:00";
+          return;
+        }
+        
+        const totalParts = totalStr.split(':');
+        const totalSecs = parseInt(totalParts[0]) * 60 + parseInt(totalParts[1]);
+
+        if (currentSeconds >= totalSecs) {
+          nextTrack(); // 재생이 끝나면 다음곡으로 자동 이동 시뮬레이션
+          return;
+        }
+
+        const percentage = (currentSeconds / totalSecs) * 100;
+        progressFill.style.width = `${percentage}%`;
+
+        const m = Math.floor(currentSeconds / 60);
+        const s = currentSeconds % 60;
+        playerCurrentTime.innerText = `${m}:${s < 10 ? '0' + s : s}`;
+      }, 1000);
+    }
+
+    // 플레이 리스트 카드 클릭 바인딩
+    playlistCards.forEach((card, idx) => {
+      card.addEventListener('click', () => {
+        loadTrack(idx);
+      });
+    });
+
+    btnPlayPause.addEventListener('click', togglePlay);
+
+
+    // 4. iOS 스타일 오늘의 무드 분석 셀렉터 핸들러
+    function handleMoodSelection() {
+      const activeBtn = moodOptions.querySelector('.opt-btn.active');
+      const mode = activeBtn.getAttribute('data-value');
+      
+      if (mode === 'boyz') {
+        const item = theBoyzTracks[0];
+        resultTrackTitle.innerHTML = `<i data-lucide="star" class="w-4 h-4 inline-block mr-1 text-brand-dark"></i> 더보이즈 - ${item.name}`;
+        resultTrackDesc.innerText = item.desc;
+      } else if (mode === 'chopin') {
+        const item = chopinTracks[0];
+        resultTrackTitle.innerHTML = `<i data-lucide="music-2" class="w-4 h-4 inline-block mr-1 text-brand-dark"></i> 쇼팽 - ${item.name}`;
+        resultTrackDesc.innerText = item.desc;
+      } else {
+        const specialItem = playlistsData[2].tracks[0]; // SZA - Snooze
+        resultTrackTitle.innerHTML = `<i data-lucide="compass" class="w-4 h-4 inline-block mr-1 text-brand-dark"></i> 스페셜 믹스 - ${specialItem.name}`;
+        resultTrackDesc.innerText = specialItem.desc;
+      }
+      lucide.createIcons();
+    }
+
+    // 기분 필터 온클릭 이벤트 위임
+    moodOptions.querySelectorAll('.opt-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        moodOptions.querySelectorAll('.opt-btn').forEach(b => {
+          b.classList.remove('active', 'bg-brand-dark', 'text-brand-cream');
+          b.classList.add('bg-white', 'text-brand-textMain');
+        });
+        
+        const target = e.target.closest('.opt-btn');
+        target.classList.add('active', 'bg-brand-dark', 'text-brand-cream');
+        target.classList.remove('bg-white', 'text-brand-textMain');
+        
+        handleMoodSelection();
+      });
+    });
+
+
+    // 5. 방명록 코멘트 저장소 작동 메커니즘 (LocalStorage)
+    const commentForm = document.getElementById('commentForm');
+    const commentorName = document.getElementById('commentorName');
+    const commentEmoji = document.getElementById('commentEmoji');
+    const commentContent = document.getElementById('commentContent');
+    const commentsFeed = document.getElementById('commentsFeed');
+    const commentsCount = document.getElementById('commentsCount');
+
+    // 더미 초기 셋업
+    const initialDummyComments = [
+      {
+        name: "밀키웨이",
+        emoji: "🎧",
+        content: "더보이즈의 Salty 진짜 제 숨겨진 매일 밤 위로곡인데 여기서 추천받으니 엄청 반갑네요! iOS 감성의 깔끔한 그린 무드가 정말 포근하고 어지러운 마음을 한방에 씻어주네요.",
+        date: "2026.07.13"
+      },
+      {
+        name: "피아노포르테",
+        emoji: "✏️",
+        content: "시험 시간 때마다 빗방울 전주곡이랑 쇼팽 노턴 교대로 틀어놓고 열공하는데 보관함 정리가 너무 단정해서 북마크해두고 매일 방문합니다.",
+        date: "2026.07.12"
+      }
+    ];
+
+    function getComments() {
+      const stored = localStorage.getItem('cozy_music_comments_v2');
+      if (stored) return JSON.parse(stored);
+      return initialDummyComments;
+    }
+
+    function saveComments(comments) {
+      localStorage.setItem('cozy_music_comments_v2', JSON.stringify(comments));
+    }
+
+    function renderComments() {
+      const comments = getComments();
+      commentsCount.innerText = `전체 흔적: ${comments.length}개`;
+
+      if (comments.length === 0) {
+        commentsFeed.innerHTML = `
+          <div class="p-8 text-center text-brand-textMuted border border-dashed border-brand-sand/50 rounded-ios">
+            "아직 흔적이 없습니다. 당신의 아름다운 첫 소감을 조용히 보드에 올려주세요."
+          </div>
+        `;
+        return;
+      }
+
+      commentsFeed.innerHTML = comments.map(c => `
+        <div class="bg-white p-5 rounded-ios border border-brand-sand/30 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-8 h-8 rounded-full bg-brand-cream border border-brand-sand flex items-center justify-center text-sm">${c.emoji || '🎧'}</span>
+              <span class="text-xs font-bold text-brand-textMain">${escapeHtml(c.name)}</span>
+            </div>
+            <span class="text-[10px] text-brand-textMuted font-medium">${c.date}</span>
+          </div>
+          <p class="text-xs text-brand-textMuted leading-relaxed">${escapeHtml(c.content)}</p>
+        </div>
+      `).join('');
+    }
+
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+
+    commentForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nameVal = commentorName.value.trim();
+      const emojiVal = commentEmoji.value;
+      const contentVal = commentContent.value.trim();
+
+      if (!nameVal || !contentVal) return;
+
+      const dateObj = new Date();
+      const formattedDate = `${dateObj.getFullYear()}.${String(dateObj.getMonth() + 1).padStart(2, '0')}.${String(dateObj.getDate()).padStart(2, '0')}`;
+
+      const newComment = {
+        name: nameVal,
+        emoji: emojiVal.substring(0, 2),
+        content: contentVal,
+        date: formattedDate
+      };
+
+      const comments = getComments();
+      comments.unshift(newComment);
+      saveComments(comments);
+      renderComments();
+
+      commentorName.value = '';
+      commentContent.value = '';
+    });
+
+    // 초기 가동 훅
+    window.onload = function() {
+      lucide.createIcons();
+      loadTrack(0);
+      handleMoodSelection();
+      renderComments();
+    }
+  </script>
+</body>
+</html>
